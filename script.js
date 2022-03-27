@@ -17,6 +17,7 @@ function operation () {
     
 
     let status = 0;
+    let status2 = 0;
 
 
     function add (num1, num2) {
@@ -58,24 +59,13 @@ function operation () {
                 } 
                 else if (status > 0) {
 
-                    console.log(a);
-
-                    if (display.textContent == "+") {
+                    if (status2 == 1) {
 
                         display.textContent = "";
-                    }
-                    else if (display.textContent == "-") {
-                        display.textContent = "";
-                    }
-                    else if (display.textContent == "/") {
-                        display.textContent = "";
-                    }
-                    else if (display.textContent == "*") {
-                        display.textContent = "";
+                        status2++;
                     }
 
                     display.textContent += numbers.id;
-
                     return b = parseFloat(display.textContent);
                 }
         })
@@ -87,7 +77,8 @@ function operation () {
 
         operator.addEventListener("click" , () => {
 
-            status++
+            status++;
+            status2 = 1;
 
             display.textContent = operator.id;
             
@@ -96,32 +87,47 @@ function operation () {
         
     })
 
+    point.addEventListener("click" , () => {
+
+        let text = display.textContent;
+
+        if(text.includes(".") == false) {
+            display.textContent += point.id;
+        }
+
+    })
+
     equal.addEventListener("click" , () => {
-        
-        console.log(b);
 
         if ( c == "+") {
-            display.textContent = add(a, b);
+            display.textContent = add(a, b), a = parseFloat(display.textContent), b = "";
         }
         else if ( c == "*") {
-            display.textContent = multiply(a, b);
+            display.textContent = multiply(a, b),  a = parseFloat(display.textContent), b = 1;
         }
         else if ( c == "/") {
-            display.textContent = divide(a, b);
+            display.textContent = divide(a, b), a = parseFloat(display.textContent), b = 1;
         }
         else if ( c == "-") {
-            display.textContent = substract(a, b);
+            display.textContent = substract(a, b),  a = parseFloat(display.textContent), b = "";
         }
-       
-        return  a = parseFloat(display.textContent), b = "";
         
+        status2 = 0;
     })
 
     del.addEventListener("click" , () => {
 
-        display.textContent = display.textContent;
+        let visual = display.textContent;
+
+        visual.toString();
+
+        textNum = visual.length - 1;
+
+        display.textContent = visual.substring(0, textNum);
+
         
-        
+
+
     })
 
 
