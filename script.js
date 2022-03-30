@@ -91,8 +91,11 @@ function operation () {
 
         let text = display.textContent;
 
-        if(text.includes(".") == false) {
-            display.textContent += point.id;
+        if(!text.includes(".")) {
+           if(text.includes("+") || text.includes("*") || text.includes("-") || text.includes("/")) {
+               return null;
+           }
+           display.textContent += point.id;
         }
 
     })
