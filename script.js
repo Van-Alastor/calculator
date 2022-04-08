@@ -11,13 +11,15 @@ let numbersButton = document.querySelectorAll(".numbers");;
 
 function operation () {
 
-    let a = 0;
+    let a = "";
     let b = 0;
     let c = "";
     
 
     let status = 0;
     let status2 = 0;
+    let stop = 0;
+
 
 
     function add (num1, num2) {
@@ -40,15 +42,20 @@ function operation () {
 
     function divide(num1, num2) {
 
-        return num1 / num2;    
+        if (num2 == 0) {
+            return display.textContent = "You can't divide by zero";
+        }
+
+        return num1 / num2;
 
     }
 
 
     numbersButton.forEach((numbers) => {
 
-        
         numbers.addEventListener("click" , () => {
+
+            if (stop < 1) {
 
                 if (status == 0) {
 
@@ -68,6 +75,7 @@ function operation () {
                     display.textContent += numbers.id;
                     return b = parseFloat(display.textContent);
                 }
+            }
         })
     
     })
@@ -77,12 +85,15 @@ function operation () {
 
         operator.addEventListener("click" , () => {
 
-            status++;
-            status2 = 1;
+            if (!(a === "") && !(isNaN(a))) {
+                status++;
+                status2 = 1;
+                stop = 0;
 
-            display.textContent = operator.id;
-            
-            return c = operator.id;
+                display.textContent = operator.id;
+                
+                return c = operator.id;
+            }
         })
         
     })
@@ -91,8 +102,8 @@ function operation () {
 
         let text = display.textContent;
 
-        if(!text.includes(".")) {
-           if(text.includes("+") || text.includes("*") || text.includes("-") || text.includes("/")) {
+        if(!text.includes(".") && !(a === "") && !(isNaN(a)) && !(isNaN(b)) && stop < 1) {
+           if(text.includes("+") || text.includes("*") || text.includes("-") || text.includes("/") || text.includes("a")) {
                return null;
            }
            display.textContent += point.id;
@@ -102,20 +113,29 @@ function operation () {
 
     equal.addEventListener("click" , () => {
 
-        if ( c == "+") {
-            display.textContent = add(a, b), a = parseFloat(display.textContent), b = "";
-        }
-        else if ( c == "*") {
-            display.textContent = multiply(a, b),  a = parseFloat(display.textContent), b = 1;
-        }
-        else if ( c == "/") {
-            display.textContent = divide(a, b), a = parseFloat(display.textContent), b = 1;
-        }
-        else if ( c == "-") {
-            display.textContent = substract(a, b),  a = parseFloat(display.textContent), b = "";
-        }
-        
-        status2 = 0;
+        if (!(isNaN(a)) && !(isNaN(b)) && !(a === "") && !(b === "")) {
+            if ( c == "+") {
+                display.textContent = add(a, b);
+                stop++;
+            }
+            else if ( c == "*") {
+                display.textContent = multiply(a, b);
+                stop++;
+            }
+            else if ( c == "/") {
+                display.textContent = divide(a, b);
+                stop++;
+            }
+            else if ( c == "-") {
+                display.textContent = substract(a, b);
+                stop++;
+            }
+
+            status2 = 0;
+            a = parseFloat(display.textContent)
+            c = "";
+
+        } 
     })
 
     del.addEventListener("click" , () => {
@@ -126,10 +146,17 @@ function operation () {
 
         textNum = visual.length - 1;
 
-        display.textContent = visual.substring(0, textNum);
-
+        if(stop == 0 && !(isNaN(a)) && !(isNaN(b))) {
+            display.textContent = visual.substring(0, textNum);
+        }
         
+        if (status == 0) {
+           return a = parseFloat(display.textContent);
 
+        } 
+        else if (status > 0) {
+            return b = parseFloat(display.textContent);
+        }
 
     })
 
@@ -139,18 +166,17 @@ function operation () {
         display.textContent = "";
         
         status = 0;
+
+        a = "";
+
+        b = "";
+
+        c = "";
+
+        stop = 0;
         
     })
 }
 
 operation ();
-
-    
-
-    
-
-   
-
-
-
 
