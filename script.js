@@ -7,11 +7,11 @@ let operators = document.querySelectorAll(".operator");
 let numbersButton = document.querySelectorAll(".numbers");;
 
 let a = "";
-let b = 0;
+let b = "";
 let c = "";
-let status1 = 0;
-let status2 = 0;
-let stopNumbers = 0;
+let status1 = false;
+let status2 = false;
+let stopNumbers = false;
 
 function add(num1, num2) {
     return num1 + num2;  
@@ -34,15 +34,15 @@ function divide(num1, num2) {
 
 numbersButton.forEach((numbers) => {
     numbers.addEventListener("click" , () => {
-        if (stopNumbers < 1) {
-            if (status1 == 0) {
+        if (stopNumbers == false) {
+            if (status1 == false) {
                 display.textContent += numbers.id;
                 a = parseFloat(display.textContent);
             } 
-            else if (status1 > 0) {
-                if (status2 == 1) {
+            else if (status1 == true) {
+                if (status2 == true) {
+                    status2 = false;
                     display.textContent = "";
-                    status2++;
             }
             display.textContent += numbers.id;
             b = parseFloat(display.textContent);
@@ -55,9 +55,9 @@ numbersButton.forEach((numbers) => {
 operators.forEach((operator) => {
     operator.addEventListener("click" , () => {
         if (!(a === "") && !(isNaN(a))) {
-            status1++;
-            status2 = 1;
-            stopNumbers = 0;
+            status1 = true;
+            status2 = true;
+            stopNumbers = false;
             display.textContent = operator.id; 
             c = operator.id;
         }
@@ -66,34 +66,35 @@ operators.forEach((operator) => {
 
 point.addEventListener("click" , () => {
     let text = display.textContent;
+    let symbols = /[\-\+\/\*]/;
 
-    if (!text.includes(".") && !(a === "") && !(isNaN(a)) && !(isNaN(b)) && stopNumbers < 1) {
-        if (text.includes("+") || text.includes("*") || text.includes("-") || text.includes("/") || text.includes("a")) {
+    if (!text.includes(".") && !(a === "") && !(isNaN(a)) && !(isNaN(b)) && stopNumbers == false) {
+        if (symbols.test(text) == true) {
             return;
         }
         display.textContent += ".";
     }
 })
 
-    equal.addEventListener("click" , () => {
-        if (!(isNaN(a)) && !(isNaN(b)) && !(a === "") && !(b === "")) {
-            if ( c == "+") {
-                display.textContent = add(a, b);
-                stopNumbers++;
-            }
-            else if ( c == "*") {
-                display.textContent = multiply(a, b);
-                stopNumbers++;
-            }
-            else if ( c == "/") {
-                display.textContent = divide(a, b);
-                stopNumbers++;
-            }
-            else if ( c == "-") {
-                display.textContent = substract(a, b);
-                stopNumbers++;
-            }
-        status2 = 0;
+equal.addEventListener("click" , () => {
+    if (!(isNaN(a)) && !(isNaN(b)) && !(a === "") && !(b === "")) {
+        if ( c == "+") {
+            display.textContent = add(a, b);
+            stopNumbers = true;
+        }
+        else if ( c == "*") {
+            display.textContent = multiply(a, b);
+            stopNumbers = true;
+        }
+        else if ( c == "/") {
+            display.textContent = divide(a, b);
+            stopNumbers = true;
+        }
+        else if ( c == "-") {
+            display.textContent = substract(a, b);
+            stopNumbers = true;
+        }
+        status2 = false;
         a = parseFloat(display.textContent)
         c = "";
     } 
@@ -104,24 +105,24 @@ del.addEventListener("click" , () => {
     visual.toString();
     textNum = visual.length - 1;
 
-    if (stopNumbers == 0 && !(isNaN(a)) && !(isNaN(b))) {
+    if (stopNumbers == false && !(isNaN(a)) && !(isNaN(b))) {
         display.textContent = visual.substring(0, textNum);
     }  
-    if (status1 == 0) {
+    if (status1 == false) {
         a = parseFloat(display.textContent);
     } 
-    else if (status1 > 0) {
+    else if (status1 == true) {
         b = parseFloat(display.textContent);
     }
 })
 
 clear.addEventListener("click" , () => {
     display.textContent = ""; 
-    status1 = 0;
+    status1 = false;
     a = "";
     b = "";
     c = "";
-    stopNumbers = 0; 
+    stopNumbers = false; 
 })
 
 

@@ -6,6 +6,7 @@ body {
     min-height: 100vh;
     justify-content: center;
     flex-direction: column;
+    background: #2c9ec254;
 }
 
 .master {
@@ -15,29 +16,38 @@ body {
 
 .title {
     padding: 0 20px;
-    background-color: greenyellow;
+    background-color: rgb(255, 255, 255);
     text-align: center;
-    width: 50vh;
+    width: 60vh;
     margin: auto;
 }
 
 .result {
+    font-size: 20px;
     text-align: center;
-    background-color: lightgray;
-    width: 50vh;
+    background-color: rgb(34 34 34 / 28%);
+    width: 60vh;
     margin: auto;
-    padding: 20px;
+    padding: 20px
+}
+
+p {
+    padding: 0;
+    margin: 0;
+    display: inline;
 }
 
 .container {
     background-color: rgba(0, 0, 0, 0.6);
     display: grid;
-    grid-template-columns: repeat(5, 45px);
-    grid-template-rows: repeat(5, 45px);
+    grid-template-columns: repeat(5, 58px);
+    grid-template-rows: repeat(5, 58px);
     grid-gap: 20px;
     justify-content: center;
     padding: 20px;
-    width: 50vh;
+    width: 60vh;
+    height: 60vh;
+    align-content: center;
     margin: auto;
 }
 
@@ -63,6 +73,7 @@ body {
 }
 
 button {
+    font-size: 15px;
     border-radius: 5%;
     border: none;
 }
