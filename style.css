@@ -133,3 +133,27 @@ button {
     background-color: rgb(25, 139, 134);
     border: none;
 }
+
+@media screen and (max-width:480px){
+    .result {
+        font-size: 20px;
+        width: 50vh;
+    }
+
+    .title {
+        padding: 0 20px;
+        width: 50vh;
+    }
+
+    button {
+        font-size: 15px;
+    }
+
+    .container {
+       
+        grid-template-columns: repeat(5, 45px);
+        grid-template-rows: repeat(5, 45px);
+        width: 50vh;
+        height: 50vh;
+    }
+}
